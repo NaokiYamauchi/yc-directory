@@ -11,19 +11,6 @@ export default async function Home({
 	const query = (await searchParams).query;
 	const posts = await client.fetch(STARTUPS_QUERY);
 
-	// const posts = [
-	// 	{
-	// 		_createdAt: new Date(),
-	// 		views: 55,
-	// 		author: { _id: 1, name: 'Naoki' },
-	// 		_id: 1,
-	// 		description: 'This is a description.',
-	// 		image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-	// 		category: 'Robots',
-	// 		title: 'We Robots',
-	// 	},
-	// ];
-
 	return (
 		<>
 			<section className="pink_container pattern">
@@ -46,7 +33,7 @@ export default async function Home({
 
 				<ul className="mt-7 card_grid">
 					{posts?.length > 0 ? (
-						posts.map((post: StartupTypeCard, number) => (
+						posts.map((post: StartupTypeCard) => (
 							<StartupCard key={post?._id} post={post} />
 						))
 					) : (
