@@ -1,3 +1,5 @@
+import { Skeleton } from '@/components/ui/skeleton';
+import View from '@/components/View';
 import { formatDate } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries';
@@ -5,6 +7,7 @@ import MarkdownIt from 'markdown-it';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 const md = new MarkdownIt();
 
@@ -70,6 +73,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 				</div>
 
 				<hr className="divider" />
+
+				<Suspense fallback={<Skeleton className="view_skeleton" />}>
+					<View id={id} />
+				</Suspense>
 			</section>
 		</>
 	);
