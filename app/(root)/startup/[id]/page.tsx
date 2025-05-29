@@ -1,9 +1,12 @@
 import { formatDate } from '@/lib/utils';
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries';
+import MarkdownIt from 'markdown-it';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+
+const md = new MarkdownIt();
 
 export const experimental_ppr = true;
 
@@ -13,6 +16,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
 	if (!post) return notFound();
+
+	const parsedContent = md.render(post?.pitch || '');
 
 	return (
 		<>
@@ -54,7 +59,17 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 					</div>
 
 					<h3 className="text-30-bold">Pitch Details</h3>
+					{parsedContent ? (
+						<article
+							className="prose max-w-4xl font-work-sans break-all"
+							dangerouslySetInnerHTML={{ __html: parsedContent }}
+						/>
+					) : (
+						<p className="no-result">No details provided</p>
+					)}
 				</div>
+
+				<hr className="divider" />
 			</section>
 		</>
 	);
