@@ -13,43 +13,6 @@
  */
 
 // Source: schema.json
-export type Startup = {
-	_id: string;
-	_type: 'startup';
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	title?: string;
-	slug?: Slug;
-	author?: {
-		_ref: string;
-		_type: 'reference';
-		_weak?: boolean;
-		[internalGroqTypeReferenceTo]?: 'author';
-	};
-	views?: number;
-	description?: string;
-	category?: string;
-	image?: string;
-	pitch?: string;
-};
-
-export type Author = {
-	_id: string;
-	_type: 'author';
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	id?: number;
-	name?: string;
-	username?: string;
-	email?: string;
-	image?: string;
-	bio?: string;
-};
-
-export type Markdown = string;
-
 export type SanityImagePaletteSwatch = {
 	_type: 'sanity.imagePaletteSwatch';
 	background?: string;
@@ -155,12 +118,6 @@ export type Geopoint = {
 	alt?: number;
 };
 
-export type Slug = {
-	_type: 'slug';
-	current?: string;
-	source?: string;
-};
-
 export type SanityAssetSourceData = {
 	_type: 'sanity.assetSourceData';
 	name?: string;
@@ -168,10 +125,50 @@ export type SanityAssetSourceData = {
 	url?: string;
 };
 
+export type Startup = {
+	_id: string;
+	_type: 'startup';
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title?: string;
+	slug?: Slug;
+	author?: {
+		_ref: string;
+		_type: 'reference';
+		_weak?: boolean;
+		[internalGroqTypeReferenceTo]?: 'author';
+	};
+	views?: number;
+	description?: string;
+	category?: string;
+	image?: string;
+	pitch?: string;
+};
+
+export type Slug = {
+	_type: 'slug';
+	current?: string;
+	source?: string;
+};
+
+export type Author = {
+	_id: string;
+	_type: 'author';
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	id?: number;
+	name?: string;
+	username?: string;
+	email?: string;
+	image?: string;
+	bio?: string;
+};
+
+export type Markdown = string;
+
 export type AllSanitySchemaTypes =
-	| Startup
-	| Author
-	| Markdown
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions
@@ -181,6 +178,9 @@ export type AllSanitySchemaTypes =
 	| SanityImageAsset
 	| SanityImageMetadata
 	| Geopoint
+	| SanityAssetSourceData
+	| Startup
 	| Slug
-	| SanityAssetSourceData;
+	| Author
+	| Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;
