@@ -3,19 +3,77 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { formSchema } from '@/lib/validation';
 import MDEditor from '@uiw/react-md-editor';
 import { Send } from 'lucide-react';
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 const StartupForm = () => {
 	const [errors, setErrors] = useState<Record<string, string>>({});
 
 	const [pitch, setPitch] = useState('');
 
-	const isPending = false;
+	// const router = useRouter();
+
+	const handleFormSubmit = async (prevState: any, formData: FormData) => {
+		try {
+			const formValues = {
+				title: formData.get('title') as string,
+				description: formData.get('description') as string,
+				category: formData.get('category') as string,
+				link: formData.get('link') as string,
+				pitch,
+			};
+
+			await formSchema.parseAsync(formValues);
+			setErrors({});
+
+			// const result = await createIdea(prevState, formData, pitch)
+			// if (result.status === 'SUCCESS') {
+			// 	toast.success("Success", {
+			//     description: "Your startup pitch has been created successfully"
+			// });
+
+			// 	router.push(`/startup/${result.id}`);
+			// }
+			// return result;
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				const fieldErrors = error.flatten().fieldErrors;
+
+				setErrors(fieldErrors as unknown as Record<string, string>);
+
+				toast.error('Error', {
+					description: 'Please check your inputs and try again',
+				});
+
+				return {
+					...prevState,
+					error: 'Validation Failed',
+					status: 'ERROR',
+				};
+			}
+			toast.error('Error', {
+				description: 'An unexpected error has occurred',
+			});
+
+			return {
+				...prevState,
+				error: 'An unexpected error has occurred',
+				status: 'ERROR',
+			};
+		}
+	};
+
+	const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+		error: '',
+		status: 'INITIAL',
+	});
 
 	return (
-		<form action={() => {}} className="startup-form">
+		<form action={formAction} className="startup-form">
 			<div>
 				<label htmlFor="title" className="startup-form_label">
 					Title
