@@ -24,7 +24,9 @@ const View = async ({ id }: { id: string }) => {
 			</div>
 
 			<p className="view-text">
-				<span className="font-black">Views: {totalViews}</span>
+				<span className="font-black">
+					View{totalViews !== 1 ? 's' : ''}: {totalViews}
+				</span>
 			</p>
 		</div>
 	);
