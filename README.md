@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YC Directory
+
+YC Directory is a platform for entrepreneurs to pitch their startup ideas, connect with others, and get feedback. Users can submit their startup details, including a pitch written in Markdown, and browse a searchable directory of all submitted startups.
+
+![YC Directory Screenshot](public/logo.png) 
+
+## Features
+
+- **User Authentication:** Secure sign-up and login using NextAuth.js.
+- **Create & Pitch:** Authenticated users can create a startup profile with a title, description, category, and a detailed pitch using a Markdown editor.
+- **Discover Startups:** A public, searchable directory of all startups.
+- **Content Management:** Powered by [Sanity.io](https://www.sanity.io/) for robust and scalable content management.
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **CMS:** [Sanity.io](https://www.sanity.io/)
+- **Authentication:** [NextAuth.js](https://next-auth.js.org/)
+- **UI Components:** [shadcn/ui](httpss://ui.shadcn.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to get a local copy up and running for development and testing purposes.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/) (v20 or later)
+- [npm](https://www.npmjs.com/)
+- A Sanity.io account and project.
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/yc-directory.git
+    cd yc-directory
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up Environment Variables:**
+    Create a `.env.local` file in the root of the project and add the necessary environment variables for Next.js and Sanity. You will need to get these from your Sanity project dashboard.
+
+    ```env
+    # Sanity
+    NEXT_PUBLIC_SANITY_PROJECT_ID="..."
+    NEXT_PUBLIC_SANITY_DATASET="..."
+    NEXT_PUBLIC_SANITY_API_VERSION="..."
+    SANITY_API_READ_TOKEN="..."
+    SANITY_API_WRITE_TOKEN="..."
+
+    # NextAuth
+    AUTH_SECRET="..."
+    AUTH_GITHUB_ID="..."
+    AUTH_GITHUB_SECRET="..."
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Sanity Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The content management studio is embedded in this application. You can access it at [http://localhost:3000/studio](http://localhost:3000/studio) to manage startup data.
